@@ -1,0 +1,41 @@
+/* @font-face{
+    font-family: Gotham;
+    src: url()
+} */
+
+body{
+    background-color: #340604;
+    color: #fff
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    text-align: center;
+}
+nav{
+    width: 20%
+}
+
+.headnav{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between;
+    padding: 1% 6%;
+}
+
+h1{
+    margin: 5% 0 1% 0;
+    padding:0;
+}
+
+h2{
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
