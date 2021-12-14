@@ -1,0 +1,1 @@
+fetch("http://api.musixmatch.com/ws/1.1/music.genres.get?apikey=aa0c97fdf12ac5c22d95200cf13d6a00").then((c=>c.json())).then((c=>console.log(c)));
