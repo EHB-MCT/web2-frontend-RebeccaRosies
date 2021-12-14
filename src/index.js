@@ -1,5 +1,5 @@
-import * as c from "credentials.js";
-const apiKey = c.apiKey
+import * as C from "./credentials.js";
+const apiKey = C.apiKey;
 
 function getSongs(){
     fetch(`https://api.musixmatch.com/ws/1.1/music.genres.get?apikey=${apiKey}`)
