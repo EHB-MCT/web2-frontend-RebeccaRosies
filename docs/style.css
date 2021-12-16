@@ -123,8 +123,17 @@ img {
     height: 18px;
     position: absolute;
     right: 0;
-    margin: 5%
+    margin: 5%;
+    background-image: url(./icons/square.svg);
+    background-repeat: no-repeat;
+    background-color: #340604;
+    border-style: none;
 }
+
+/* button {
+    color: none !important;
+    background-color: none !important;
+} */
 .hideUsedDiv{
     display: flex;
     flex-direction: row;
