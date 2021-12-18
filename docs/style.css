@@ -84,11 +84,61 @@ h2 {
     padding: 0;
 }
 
+/* -----------FORM----------------------------------------------------------------------------------- */
+#form {
+    background-color: whitesmoke;
+    border-radius: 15px;
+
+    /*box-sizing: border-box;*/
+    width: 50%;
+    height: 50vh;
+
+    margin: 10px 50px 0 35px;
+    padding: 5% 2.5%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#form h2 {
+    color: #340604;
+}
+
+#form #lyric {
+    margin: 2% 0;
+    padding: 2% 0;
+    border: none;
+}
+
+#genre{
+    color: #340604;
+    margin: 2% 0;
+    padding: 2% 0;
+    border: none;
+}
+
+#artist{
+    margin: 2% 0;
+    padding: 2% 0;
+    border: none;
+}
+
+
+#submit {
+    background-color: #340604;
+    color: whitesmoke;
+    margin-top: 25px;
+    padding: 5px 0px;
+    border: none;
+}
+/* -------------------------------------------------------------------------------------------------- */
+
 .squares {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     position: relative;
+    flex-wrap:wrap;
 }
 
 .square {
@@ -99,6 +149,7 @@ h2 {
     border-color: white;
     display: flex;
     position: relative;
+    margin: 1vw 2vw;
 }
 
 .square p {
