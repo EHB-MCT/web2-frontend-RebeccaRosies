@@ -6,7 +6,6 @@ const buttonsHTMLCollection = document.getElementsByClassName("btn");
 var buttons = [...buttonsHTMLCollection];
 console.log(buttons);
 
-
 let htmlString = ""
 /* const poetry = "q_lyrics=read&q_lyrics=dream&q_lyrics=thought&q_lyrics=write&q_lyrics=book"
 const love = "q_lyrics=love&q_lyrics=heart&q_lyrics=forever&q_lyrics=stay&q_lyrics=darling" */
@@ -42,7 +41,6 @@ for (let button of buttons) {
 button.addEventListener("click", function(){console.log("click")}); */
 
 
-
 /* function getSongsByGenre(genreId) {
     // fetch(`https://api.musixmatch.com/ws/1.1/music.genres.get?apikey=${apiKey}`)
     fetch(`https://api.musixmatch.com/ws/1.1/track.search?${genreId}&s_track_rating=desc&apikey=${apiKey}`)
@@ -59,7 +57,6 @@ button.addEventListener("click", function(){console.log("click")}); */
         .then(data =>
             console.log(data))
 }; */
-
 
 //prepare the form (get possible genres, artists and provide space to put lyrics)
 function getGenres() {
@@ -85,7 +82,6 @@ document.getElementById('form').addEventListener('submit', e => {
     getSongs();
 })
 
-
 function getSongs() {
     let lyric = document.getElementById('lyric').value;
     let lyricparam = `q_lyrics=${lyric}`;
@@ -108,31 +104,50 @@ function getSongs() {
                 }
                 console.log(genreName);
                 let song = {
-                    "name" : track.track_name,
-                    "artist" : track.artist_name,
-                    "genre" : genreName,
-                    "rating" : track.track_rating
-                    }
-                postSongs(song); 
-                })
+                    "artist": track.track.artist_name,
+                    "genre": genreName,
+                    "name": track.track.track_name,
+                    "rating": track.track.track_rating
+                }
+
+                console.log(track.track.artist_name,genreName,track.track.track_name,track.track.track_rating)
+                postSong(track.track.artist_name,genreName,track.track.track_name,track.track.track_rating); 
+            })
         })
 }
 
-function postSongs(song) {
-    console.log("fetch is happening, be patient...");
-    fetch('http://persic.herokuapp.com/songs', {
+
+function postSong(name, artist, genre, rating) {
+    //console.log("fetch is happening, be patient...");
+    let song = {
+        "name": name,
+        "artist": artist,
+        "genre": genre,
+        "rating": rating
+    }
+
+    fetch('https://persic.herokuapp.com/songs', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(song)
+            body:  JSON.stringify(song)
         })
         .then(response => response.json())
         .then(data => {
-            console.log('songs posted', data);
+            console.log('song posted', data);
         });
-
-
 }
+
+function databaseSongs() {
+    console.log("getting it, just a sec...");
+    fetch('https://persic.herokuapp.com/songs')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+}
+
+databaseSongs();
 
 
