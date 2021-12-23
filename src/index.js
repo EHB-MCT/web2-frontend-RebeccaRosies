@@ -7,39 +7,6 @@ var buttons = [...buttonsHTMLCollection];
 console.log(buttons);
 
 let htmlString = ""
-/* const poetry = "q_lyrics=read&q_lyrics=dream&q_lyrics=thought&q_lyrics=write&q_lyrics=book"
-const love = "q_lyrics=love&q_lyrics=heart&q_lyrics=forever&q_lyrics=stay&q_lyrics=darling" */
-/* 
-for (let button of buttons) {
-    button.addEventListener("click", function () {
-        console.log("click");
-        if (button.style.cssText != 'background-image: url("./icons/checkedbox.svg");') {
-            button.style.cssText = 'background-image: url("./icons/checkedbox.svg");'
-            console.log("succes");
-            if (button.className == "genre") {
-                console.log("genre");
-                console.log(button.id)
-                getSongsByGenre(button.id);
-            } else {
-                console.log("theme");
-                console.log(button.id)
-                getSongsByLyrics(button.id);
-            }
-
-            //add songs to database 
-
-        } else if (button.style.cssText == 'background-image: url("./icons/checkedbox.svg");') {
-            button.style.cssText = 'background-image: url("./icons/square.svg");';
-            console.log("idk", button.style.cssText)
-            console.log(button.id)
-            getSongsByGenre(button.id);
-            // delete these songs from database
-        };
-    });
-} */
-/* const button = document.getElementById("btn3_1");
-button.addEventListener("click", function(){console.log("click")}); */
-
 
 /* function getSongsByGenre(genreId) {
     // fetch(`https://api.musixmatch.com/ws/1.1/music.genres.get?apikey=${apiKey}`)
@@ -75,13 +42,14 @@ function getGenres() {
 
 getGenres();
 
+//sumbit the form
 document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
     console.log("submit");
     //newSongs();
     getSongs();
 })
-
+//get songs from musixmatch api with form values
 function getSongs() {
     let lyric = document.getElementById('lyric').value;
     let lyricparam = `q_lyrics=${lyric}`;
@@ -116,16 +84,8 @@ function getSongs() {
         })
 }
 
-
+//post songs gotten from musixmatch api to my database
 function postSong(song) {
-    //console.log("fetch is happening, be patient...");
-   /*  let song = {
-        "name": name,
-        "artist": artist,
-        "genre": genre,
-        "rating": rating
-    } */
-
     fetch('https://persic.herokuapp.com/songs', {
             method: 'POST',
             headers: {
@@ -136,18 +96,45 @@ function postSong(song) {
         .then(response => response.json())
         .then(data => {
             console.log('song posted', data);
+            databaseSongs();//get all the songs in the database (after having added the new ones)
+            console.log("getting updated list of songs")
         });
 }
 
+
+//get all the songs in the database
 function databaseSongs() {
     console.log("getting it, just a sec...");
     fetch('https://persic.herokuapp.com/songs')
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            displayAll(data); 
         });
 }
+databaseSongs(); //get all the songs in the database when loading the page
 
-databaseSongs();
 
+function displayAll(data){
+    let suggestionsDiv = document.getElementById('suggestionsDiv')
+    let htmlString = ""
 
+    //displaying all data
+    data.forEach(song => {
+        console.log(song.name, song.artist, song.genre, song.rating, song)
+        htmlString +=
+            `<article class="songSuggestion">
+                <h3>${song.name}</h3>
+                <div class="info">
+                    <p>Artist: ${song.artist}</p>
+                    <p>Genre: ${song.genre}</p>
+                    <p>Rating: ${song.rating}</p>
+                </div>
+                <div class ="change">
+                    <button id="favorite" class="favorite" value="${song._id}"></button>
+                    <button id="used" class="used" value="${song._id}" ></button>
+                </div>
+            </article>`
+    })
+    suggestionsDiv.innerHTML = htmlString
+}
