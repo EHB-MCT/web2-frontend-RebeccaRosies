@@ -111,20 +111,20 @@ function getSongs() {
                 }
 
                 console.log(track.track.artist_name,genreName,track.track.track_name,track.track.track_rating)
-                postSong(track.track.artist_name,genreName,track.track.track_name,track.track.track_rating); 
+                postSong(song); 
             })
         })
 }
 
 
-function postSong(name, artist, genre, rating) {
+function postSong(song) {
     //console.log("fetch is happening, be patient...");
-    let song = {
+   /*  let song = {
         "name": name,
         "artist": artist,
         "genre": genre,
         "rating": rating
-    }
+    } */
 
     fetch('https://persic.herokuapp.com/songs', {
             method: 'POST',
