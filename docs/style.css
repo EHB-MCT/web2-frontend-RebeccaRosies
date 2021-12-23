@@ -90,6 +90,7 @@ h2 {
     background-repeat: no-repeat;
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 /* -----------FORM----------------------------------------------------------------------------------- */
@@ -287,7 +288,7 @@ h2 {
 /* ~~~~~~~~~FAVORITES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #favoritesDiv{
     width: 100%;
-    max-height: 340px;
+    height: 340px;
     background-color: #F7795B;
     border-radius: 15px;
     padding: 0;
@@ -297,7 +298,7 @@ h2 {
     justify-content: flex-start;
     align-content:flex-start;
 
-    overflow-y:scroll;
+    overflow-y:auto;
 
 }
 
@@ -320,9 +321,9 @@ h2 {
 .favoriteSong{
  background-color: #340604;
  color: white;
- margin-top: 2%;
- margin-bottom: 0;
+ margin: 2% 2% 0 2%;
  min-width: 140px;
+ 
 }
 
 /* ~~~~~~~~~END FAVORITES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -343,10 +344,15 @@ img {
     border-style: none;
 }
 
-.hideUsedDiv{
-    display: flex;
-    flex-direction: row;
-    margin-left: 50px;
+#hideUsedSuggestions {
+    position: absolute;
+    left: 40px;
+    top: 20px;
+    margin-top: 5px;
+    background-image: url(./icons/square.svg);
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 160px;
 }
 
 .hideUsedDiv p{
@@ -372,8 +378,6 @@ img {
 }
 
 footer {
-    position: sticky;
-    bottom: 0;
     text-align: center;
     font-size: 12px;
     align-self: center;

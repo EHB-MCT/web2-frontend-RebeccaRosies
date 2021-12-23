@@ -1,5 +1,6 @@
 import * as C from "./credentials.js";
 const apiKey = C.apiKey;
+let savebutton = document.getElementsByClassName('favorite');
 
 console.log("test");
 const buttonsHTMLCollection = document.getElementsByClassName("btn");
@@ -113,7 +114,7 @@ function databaseSongs() {
 }
 databaseSongs(); //get all the songs in the database when loading the page
 
-//displaying all data
+//display suggested songs
 function displayAll(data){
     let suggestionsDiv = document.getElementById('suggestionsDiv')
     let htmlString = ""
@@ -133,13 +134,61 @@ function displayAll(data){
                         <button id="favorite" class="favorite" value="${song._id}"></button>
                         <button id="used" class="used" value="${song._id}" ></button>
                     </div>
-                </article>`
+                </article>`;
         });
         suggestionsDiv.innerHTML = htmlString;
+
+        //eventlisteners vr favorite
+        for (let i = 0; i <favorite.length; i++) {
+            favorite[i].addEventListener('click', e => {
+                e.preventDefault();
+                let id = favorite[i].value;
+                console.log(id,data)
+                saveToFavSongs(id, data);
+            })
+        }
     } else{ //in case of reset 
         suggestionsDiv.innerHTML = "";
     }
 }
+
+
+function saveToFavSongs(id, songs){
+    console.log("get from songs database with id & save to favSongs database")
+    let song = {}
+    songs.forEach(data => {
+        if (id == data._id){
+            song = {
+                "artist": data.artist,
+                "genre": data.genre,
+                "name": data.name,
+                "rating": data.rating
+            }
+        }
+    })
+    console.log(song)
+    fetch(`https://persic.herokuapp.com/songs/favorites`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body:  JSON.stringify(song)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('songs posted to favSongs', data);
+        favSongs();//get all the favorites songs in the database (after having added the new ones)
+        console.log("getting updated list of favSongs")
+    });
+}
+
+
+//reset button
+document.getElementById("resetSongs").addEventListener("click", e => {
+    e.preventDefault();
+    console.log("reset");
+    resetSongs();
+})
 
 
 //reset button
@@ -169,19 +218,20 @@ function favSongs() {
     fetch('https://persic.herokuapp.com/songs/favorites')
         .then(response => response.json())
         .then(data => {
-            console.log("these are the favorites:");
-            console.log(data);
+            //console.log("these are the favorites:");
+            //console.log(data);
             displayFavs(data); 
         });
 }
 favSongs();
+//display favorites 
 function displayFavs(data){
 
     let favoritesDiv = document.getElementById('favoritesDiv')
     let htmlString = ""
 
     data.forEach(song => {
-        console.log(song.name, song.artist, song.genre, song.rating, song)
+        //console.log(song.name, song.artist, song.genre, song.rating, song)
         htmlString +=
             `<article class="songSuggestion favoriteSong">
                 <h3>${song.name}</h3>
@@ -197,6 +247,5 @@ function displayFavs(data){
             </article>`
     });
     favoritesDiv.innerHTML = htmlString;
-
 }
 
