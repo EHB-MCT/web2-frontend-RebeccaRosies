@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css" />
-    <script type="module" src="./main.js"></script> 
+    <script type="module" src="./main.js"></script>
     <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
     <title>Persic</title>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -20,15 +22,17 @@
             <h2>Find the perfect music for your story</h2>
         </div>
         <nav>
-            <ul class= "headnav">
+            <ul class="headnav">
                 <div>
                     <li>Explore</li>
                     <li> <img class="navcircle" src="./icons/circle_dark.svg" alt=""></li>
                 </div>
-                 <div>
-                     <li>Saved Songs</li>
-                     <li> <img class="navcircle" src="./icons/circle_dark_unfilled.svg" alt=""></li>
-                 </div>
+                <a id="favNav" href="#favoritesDiv">
+                    <div>
+                        <li>Saved Songs</li>
+                        <li> <img class="navcircle" src="./icons/circle_dark_unfilled.svg" alt=""></li>
+                    </div>
+                </a>
                 <div>
                     <li>Profile</li>
                     <li> <img class="navcircle" src="./icons/circle_dark_unfilled.svg" alt=""></li>
@@ -36,46 +40,47 @@
             </ul>
         </nav>
     </header>
-    
+
     <main>
-    <section class="section1">
-        <form id="form">
-            <h2>Search based on lyrics, genre or artist</h2>
-            <!--Name-->
-            <input id="lyric" type="text" name="name" placeholder="theme/songlyric" />
-            <!--Points-->
-            <select id="genre" name="genre">
-                <option id="genre0" value="" disabled selected hidden>genre</option>
-            </select>
-            <!--Course-->
-            <input id="artist" type="text" name="course" placeholder="Artist" />
-            <!--Session-->
-            <button id="submit" type="submit">Submit</button>       
-            <button id="reset" class="reset" type="reset"> Reset</button> 
-        
-           
-            <button id="resetSongs" class="resetSongs" type="button">Reset Songs</button>
-            <h3>Try These Songs!</h3>
-        </form>
-        <p id = "hideUsedSuggestions">hide used songs</p>
-        <div id="suggestionsDiv">
-            <div class="songSuggestion">
+        <section class="section1">
+            <form id="form">
+                <h2>Search based on lyrics, genre or artist</h2>
+                <!--Name-->
+                <input id="lyric" type="text" name="name" placeholder="theme/songlyric" />
+                <!--Points-->
+                <select id="genre" name="genre">
+                    <option id="genre0" value="" disabled selected hidden>genre</option>
+                </select>
+                <!--Course-->
+                <input id="artist" type="text" name="course" placeholder="Artist" />
+                <!--Session-->
+                <button id="submit" type="submit">Submit</button>
+                <button id="reset" class="reset" type="reset"> Reset</button>
+
+
+                <button id="resetSongs" class="resetSongs" type="button">Reset Songs</button>
+                <h3>Try These Songs!</h3>
+            </form>
+            <p id="hideUsedSuggestions">hide used songs</p>
+            <div id="suggestionsDiv">
+                <div class="songSuggestion">
+
+                </div>
 
             </div>
-            
-        </div>
-    </section>
-    <section class="saved">
-        <h3>Saved Songs</h3>
-        <div class=hideUsedSaved>
-            <p>hide used songs</p>
-        </div>
-        <div id=favoritesDiv>
-        </div>
-    </section>
+        </section>
+        <section class="saved">
+            <h3>Saved Songs</h3>
+            <div class=hideUsedSaved>
+                <p>hide used songs</p>
+            </div>
+            <div id=favoritesDiv>
+            </div>
+        </section>
     </main>
     <footer>
         <p>@Rebecca Rosies</p>
     </footer>
 </body>
+
 </html>

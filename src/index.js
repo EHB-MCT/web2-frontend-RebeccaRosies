@@ -10,23 +10,6 @@ console.log(buttons);
 
 let htmlString = ""
 
-/* function getSongsByGenre(genreId) {
-    // fetch(`https://api.musixmatch.com/ws/1.1/music.genres.get?apikey=${apiKey}`)
-    fetch(`https://api.musixmatch.com/ws/1.1/track.search?${genreId}&s_track_rating=desc&apikey=${apiKey}`)
-        // fetch(`https://api.musixmatch.com/ws/1.1/track.search?q_lyrics=vengabus&apikey=${apiKey}`)
-        // fetch(`https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=15953433&apikey=${apiKey}`)
-        .then(response => response.json())
-        .then(data =>
-            console.log(data))
-}; */
-
-/* function getSongsByLyrics(lyrics) {
-    fetch(`https://api.musixmatch.com/ws/1.1/track.search?${lyrics}&s_track_rating=desc&apikey=${apiKey}`)
-        .then(response => response.json())
-        .then(data =>
-            console.log(data))
-}; */
-
 //prepare the form (get possible genres, artists and provide space to put lyrics)
 function getGenres() {
     fetch(`https://api.musixmatch.com/ws/1.1/music.genres.get?apikey=${apiKey}`)
@@ -80,8 +63,8 @@ function getSongs() {
                     "rating": track.track.track_rating
                 }
 
-                console.log(track.track.artist_name,genreName,track.track.track_name,track.track.track_rating)
-                postSong(song); 
+                console.log(track.track.artist_name, genreName, track.track.track_name, track.track.track_rating)
+                postSong(song);
             })
         })
 }
@@ -93,12 +76,12 @@ function postSong(song) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body:  JSON.stringify(song)
+            body: JSON.stringify(song)
         })
         .then(response => response.json())
         .then(data => {
             console.log('song posted', data);
-            databaseSongs();//get all the songs in the database (after having added the new ones)
+            databaseSongs(); //get all the songs in the database (after having added the new ones)
             console.log("getting updated list of songs")
         });
 }
@@ -110,17 +93,17 @@ function databaseSongs() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            displayAll(data); 
+            displayAll(data);
         });
 }
 databaseSongs(); //get all the songs in the database when loading the page
 
 //display suggested songs
-function displayAll(data){
+function displayAll(data) {
     let suggestionsDiv = document.getElementById('suggestionsDiv')
     let htmlString = ""
 
-    if (data){
+    if (data) {
         data.forEach(song => {
             console.log(song.name, song.artist, song.genre, song.rating, song)
             htmlString +=
@@ -140,26 +123,26 @@ function displayAll(data){
         suggestionsDiv.innerHTML = htmlString;
 
         //eventlisteners vr favorite
-        for (let i = 0; i <favorite.length; i++) {
+        for (let i = 0; i < favorite.length; i++) {
             favorite[i].addEventListener('click', e => {
                 e.preventDefault();
                 let id = favorite[i].value;
                 document.getElementById(`favorite${id}`).style.backgroundImage = "url(../docs/icons/filledHeart.svg)";
-                console.log(id,data);
+                console.log(id, data);
                 saveToFavSongs(id, data);
             })
         }
-    } else{ //in case of reset 
+    } else { //in case of reset 
         suggestionsDiv.innerHTML = "";
     }
 }
 
 
-function saveToFavSongs(id, songs){
+function saveToFavSongs(id, songs) {
     console.log("get from songs database with id & save to favSongs database")
     let song = {}
     songs.forEach(data => {
-        if (id == data._id){
+        if (id == data._id) {
             song = {
                 "artist": data.artist,
                 "genre": data.genre,
@@ -170,18 +153,18 @@ function saveToFavSongs(id, songs){
     })
     console.log(song)
     fetch(`https://persic.herokuapp.com/songs/favorites`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body:  JSON.stringify(song)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('songs posted to favSongs', data);
-        favSongs();//get all the favorites songs in the database (after having added the new ones)
-        console.log("getting updated list of favSongs")
-    });
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(song)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('songs posted to favSongs', data);
+            favSongs(); //get all the favorites songs in the database (after having added the new ones)
+            console.log("getting updated list of favSongs")
+        });
 }
 
 
@@ -200,7 +183,7 @@ document.getElementById("resetSongs").addEventListener("click", e => {
     resetSongs();
 })
 //reset function
-function resetSongs(){
+function resetSongs() {
     console.log("reset function");
     fetch(`https://persic.herokuapp.com/songs`, {
             method: 'DELETE'
@@ -222,12 +205,12 @@ function favSongs() {
         .then(data => {
             //console.log("these are the favorites:");
             //console.log(data);
-            displayFavs(data); 
+            displayFavs(data);
         });
 }
 favSongs();
 //display favorites 
-function displayFavs(data){
+function displayFavs(data) {
 
     let favoritesDiv = document.getElementById('favoritesDiv')
     let htmlString = ""
@@ -250,20 +233,20 @@ function displayFavs(data){
     });
     favoritesDiv.innerHTML = htmlString;
 
-    for (let i = 0; i <favorited.length; i++) {
+    for (let i = 0; i < favorited.length; i++) {
         favorited[i].addEventListener('click', e => {
             e.preventDefault();
             let id = favorited[i].value;
             document.getElementById(`favorited${id}`).style.backgroundImage = "url(../docs/icons/heart.svg)";
-            console.log(id,data);
+            console.log(id, data);
             deleteFav(id);
         })
     }
 }
 
-function deleteFav(id){
-console.log("delete this song");
-fetch(`https://persic.herokuapp.com/songs/favorites/${id}`, {
+function deleteFav(id) {
+    console.log("delete this song");
+    fetch(`https://persic.herokuapp.com/songs/favorites/${id}`, {
             method: 'DELETE'
         })
         .then(response => response.json())
@@ -271,4 +254,3 @@ fetch(`https://persic.herokuapp.com/songs/favorites/${id}`, {
             console.log(`song deleted with id: ${id}`, data);
         });
 }
-
