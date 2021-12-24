@@ -1,6 +1,6 @@
 import * as C from "./credentials.js";
 const apiKey = C.apiKey;
-let savebutton = document.getElementsByClassName('favorite');
+let favorite = document.getElementsByClassName('favorite');
 
 console.log("test");
 const buttonsHTMLCollection = document.getElementsByClassName("btn");
@@ -131,7 +131,7 @@ function displayAll(data){
                         <p>Rating: ${song.rating}</p>
                     </div>
                     <div class ="change">
-                        <button id="favorite" class="favorite" value="${song._id}"></button>
+                        <button id="favorite${song._id}" class="favorite" value="${song._id}"></button>
                         <button id="used" class="used" value="${song._id}" ></button>
                     </div>
                 </article>`;
@@ -143,7 +143,8 @@ function displayAll(data){
             favorite[i].addEventListener('click', e => {
                 e.preventDefault();
                 let id = favorite[i].value;
-                console.log(id,data)
+                document.getElementById(`favorite${id}`).style.backgroundImage = "url(../docs/icons/filledHeart.svg)";
+                console.log(id,data);
                 saveToFavSongs(id, data);
             })
         }

@@ -326,6 +326,10 @@ h2 {
  
 }
 
+.favoriteSong .change .favorite{
+    background-image: url(./icons/filledHeart.svg);
+}
+
 /* ~~~~~~~~~END FAVORITES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 img {
