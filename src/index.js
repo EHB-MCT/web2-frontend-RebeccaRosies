@@ -1,6 +1,7 @@
 import * as C from "./credentials.js";
 const apiKey = C.apiKey;
 let favorite = document.getElementsByClassName('favorite');
+let favorited = document.getElementsByClassName('favorited');
 
 console.log("test");
 const buttonsHTMLCollection = document.getElementsByClassName("btn");
@@ -242,11 +243,32 @@ function displayFavs(data){
                     <p>Rating: ${song.rating}</p>
                 </div>
                 <div class ="change">
-                    <button id="favorite" class="favorite" value="${song._id}"></button>
+                    <button id="favorited${song._id}" class="favorited" value="${song._id}"></button>
                     <button id="used" class="used" value="${song._id}" ></button>
                 </div>
             </article>`
     });
     favoritesDiv.innerHTML = htmlString;
+
+    for (let i = 0; i <favorited.length; i++) {
+        favorited[i].addEventListener('click', e => {
+            e.preventDefault();
+            let id = favorited[i].value;
+            document.getElementById(`favorited${id}`).style.backgroundImage = "url(../docs/icons/heart.svg)";
+            console.log(id,data);
+            deleteFav(id);
+        })
+    }
+}
+
+function deleteFav(id){
+console.log("delete this song");
+fetch(`https://persic.herokuapp.com/songs/favorites/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(`song deleted with id: ${id}`, data);
+        });
 }
 

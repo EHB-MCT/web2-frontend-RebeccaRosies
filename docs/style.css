@@ -253,7 +253,7 @@ h2 {
    
 }
 
-.change .favorite{
+.change .favorite, .change .favorited{
     background-image: url(./icons/heart.svg);
     background-color: transparent;
     background-repeat: no-repeat;
@@ -261,7 +261,6 @@ h2 {
     width:20px;
     height: 20px;
 }
-
 
 .change .used{
     background-image: url(./icons/used2.svg);
@@ -326,7 +325,7 @@ h2 {
  
 }
 
-.favoriteSong .change .favorite{
+.favoriteSong .change .favorited{
     background-image: url(./icons/filledHeart.svg);
 }
 
