@@ -2,6 +2,7 @@ import * as C from "./credentials.js";
 const apiKey = C.apiKey;
 let favorite = document.getElementsByClassName('favorite');
 let favorited = document.getElementsByClassName('favorited');
+let clocks = document.getElementsByClassName('favClock');
 
 console.log("test");
 const buttonsHTMLCollection = document.getElementsByClassName("btn");
@@ -116,7 +117,7 @@ function displayAll(data) {
                     </div>
                     <div class ="change">
                         <button id="favorite${song._id}" class="favorite" value="${song._id}"></button>
-                        <button id="used" class="used" value="${song._id}" ></button>
+                        <button id="clock${song._id}" class="favClock used 0" value="${song._id}" ></button>
                     </div>
                 </article>`;
         });
@@ -128,8 +129,26 @@ function displayAll(data) {
                 e.preventDefault();
                 let id = favorite[i].value;
                 document.getElementById(`favorite${id}`).style.backgroundImage = "url(../docs/icons/filledHeart.svg)";
-                console.log(id, data);
+                //console.log(id, data);
                 saveToFavSongs(id, data);
+            })
+        }
+
+        for (let i = 0; i < clocks.length; i++) {
+            clocks[i].addEventListener('click', e => {
+                e.preventDefault();
+                let id = clocks[i].value;
+                console.log(clocks[i].className);
+                if (clocks[i].className == "favClock used 0"){
+                    clocks[i].className = "favClock used 1"
+                    document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/usedOnce.svg)"; 
+                } else if (clocks[i].className == "favClock used 1"){
+                    clocks[i].className = "favClock used 2"
+                    document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/usedTwice.svg)";
+                } else {
+                    clocks[i].className = "favClock used 0"
+                    document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/used2.svg)";
+                }
             })
         }
     } else { //in case of reset 
@@ -227,7 +246,7 @@ function displayFavs(data) {
                 </div>
                 <div class ="change">
                     <button id="favorited${song._id}" class="favorited" value="${song._id}"></button>
-                    <button id="used" class="used" value="${song._id}" ></button>
+                    <button id="clock${song._id}" class="favClock used 0" value="${song._id}" ></button>
                 </div>
             </article>`
     });
@@ -240,6 +259,23 @@ function displayFavs(data) {
             document.getElementById(`favorited${id}`).style.backgroundImage = "url(../docs/icons/heart.svg)";
             console.log(id, data);
             deleteFav(id);
+        })
+    }
+    for (let i = 0; i < clocks.length; i++) {
+        clocks[i].addEventListener('click', e => {
+            e.preventDefault();
+            let id = clocks[i].value;
+            console.log(clocks[i].className);
+            if (clocks[i].className == "favClock used 0"){
+                clocks[i].className = "favClock used 1"
+                document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/usedOnce.svg)"; 
+            } else if (clocks[i].className == "favClock used 1"){
+                clocks[i].className = "favClock used 2"
+                document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/usedTwice.svg)";
+            } else {
+                clocks[i].className = "favClock used 0"
+                document.getElementById(`clock${id}`).style.backgroundImage = "url(../docs/icons/used2.svg)";
+            }
         })
     }
 }
